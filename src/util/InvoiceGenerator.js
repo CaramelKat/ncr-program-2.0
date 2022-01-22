@@ -33,10 +33,18 @@ class InvoiceGenerator {
                 align: 'left',
             });
         doc.moveDown()
+
+        doc.font('Helvetica')
+            .fontSize(10)
+            .text("*Some sort of longer instructions and reminders that I'll write later because I'm tired lol", 10, doc.page.height - 15, {
+                align: 'left',
+                lineBreak: false,
+            });
+        doc.moveDown()
     }
 
     generateTable(doc, badge) {
-        const tableTop = 75;
+        const tableTop = 50;
         const nameX = 10;
         const troopX = 125;
         const quantityX = 205;
@@ -56,8 +64,8 @@ class InvoiceGenerator {
 
         if(badge.requirements.length <= 28) {
             for(let i = 0; i < numScouts; i++) {
-                let max = 20
-                if(scouts.length < 20)
+                let max = 21
+                if(scouts.length < 21)
                     max = scouts.length;
                 doc.font('Helvetica-Bold')
                     .fontSize(10)
@@ -97,10 +105,10 @@ class InvoiceGenerator {
         }
         else {
             for(let i = 0; i < numScouts; i++) {
-                if(scouts[0].name === '')
+                if(scouts[0] === undefined || scouts[0].name === '')
                     break;
-                let max = 10
-                if(scouts.length < 10)
+                let max = 13
+                if(scouts.length < max)
                     max = scouts.length;
                 doc.font('Helvetica-Bold')
                     .fontSize(10)
@@ -116,7 +124,7 @@ class InvoiceGenerator {
 
                     let y = tableTop + 25
                     if(badge.requirements.length > 28)
-                        y += (j * 50)
+                        y += (j * 40)
                     else
                         y += (j * 25)
                     doc
@@ -176,7 +184,7 @@ class InvoiceGenerator {
         var boxOffset = 0, textOffset = 0;
         for(var j = 0; j < content.length; j++) {
             if(j >= 28 && j % 28 === 0) {
-                y += 25;
+                y += 16;
                 boxOffset = 0;
             }
             doc.fontSize(7);
