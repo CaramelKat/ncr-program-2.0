@@ -2,8 +2,8 @@
   "http": {
     "port": 80
   }, "mongoose": {
-  "uri": "mongodb://localhost:27017",
-  "database": "NCR",
+  "uri": "mongodb://127.0.0.1:27017",
+  "database": "Paperwork",
   "options": {
     "useNewUrlParser": true,
     "useUnifiedTopology": true

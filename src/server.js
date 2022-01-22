@@ -3,7 +3,7 @@ const fileUpload = require('express-fileupload');
 const Excel = require('exceljs');
 const path = require('path');
 const config = require('./config.json');
-const badges = require('./badges.json');
+const db = require('./util/database')
 const InvoiceGenerator = require('./util/InvoiceGenerator');
 const app = express();
 
@@ -35,6 +35,8 @@ app.post('/paperwork/', async function(req, res) {
         return res.status(400).send('Invalid file type was uploaded.');
 
     uploadPath = path.join(__dirname, './files/DoubleknotExport.xls');
+
+    let badges = await db.getBadges();
 
     // Use the mv() method to place the file somewhere on your server
     await ncr.mv(uploadPath, function(err) {
@@ -90,7 +92,9 @@ app.post('/paperwork/', async function(req, res) {
         });
     });
 });
-
-app.listen(port, () => {
-    console.log(`Success! Your application is running on port ${port}.`);
+console.log(`Connecting to the database...`);
+db.connect().then(() => {
+    app.listen(port, () => {
+        console.log(`Success! Your application is running on port ${port}.`);
+    });
 });

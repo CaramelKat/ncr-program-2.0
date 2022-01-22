@@ -215,18 +215,42 @@ class InvoiceGenerator {
         process.stdout.write('Generating NCR\'s')
 
         for(let i = 0; i < this.invoice.badges.length; i++) {
-            if(i % 4 === 0)
-                process.stdout.write('.')
-            theOutput.pipe(fs.createWriteStream(fileName))
+            if(this.invoice.badges[i].time !== undefined && this.invoice.badges[i].time.length !== 0) {
+                for(let j = 0; j < this.invoice.badges[i].time.length; j++) {
+                    let badge = {
+                        name: this.invoice.badges[i].name,
+                        time: this.invoice.badges[i].time[j],
+                        requirements: this.invoice.badges[i].requirements
+                    }
 
-            this.generateHeaders(theOutput, this.invoice.badges[i])
+                    if(i % 4 === 0)
+                        process.stdout.write('.')
+                    theOutput.pipe(fs.createWriteStream(fileName))
 
-            theOutput.moveDown()
+                    this.generateHeaders(theOutput, badge)
 
-            this.generateTable(theOutput, this.invoice.badges[i])
+                    theOutput.moveDown()
 
-            if(i !== this.invoice.badges.length - 1)
-                theOutput.addPage();
+                    this.generateTable(theOutput, badge)
+
+                    if(i !== this.invoice.badges.length - 1)
+                        theOutput.addPage();
+                }
+            }
+            else {
+                if(i % 4 === 0)
+                    process.stdout.write('.')
+                theOutput.pipe(fs.createWriteStream(fileName))
+
+                this.generateHeaders(theOutput, this.invoice.badges[i])
+
+                theOutput.moveDown()
+
+                this.generateTable(theOutput, this.invoice.badges[i])
+
+                if(i !== this.invoice.badges.length - 1)
+                    theOutput.addPage();
+            }
         }
         process.stdout.write('Done!')
         console.log('\nWriting PDF')

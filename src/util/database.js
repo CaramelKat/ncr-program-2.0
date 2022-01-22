@@ -19,6 +19,12 @@ function verifyConnected() {
     }
 }
 
+async function getBadges() {
+    verifyConnected();
+    return BADGE.find({});
+}
+
 module.exports = {
-    connect
+    connect,
+    getBadges
 }
