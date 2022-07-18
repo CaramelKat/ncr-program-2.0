@@ -65,7 +65,7 @@ app.post('/paperwork/', async function(req, res) {
             for(let i = 2; i < workbook.worksheets[0].columns[0].values.length; i++) {
                 if(i % 50 === 0)
                     process.stdout.write('.')
-                if(workbook.worksheets[0].columns[5].values[i] !== undefined && workbook.worksheets[0].columns[5].values[i] !== 'waitlisted')
+                if(workbook.worksheets[0].columns[5].values[i] !== undefined && workbook.worksheets[0].columns[5].values[i] === 'waitlisted')
                     continue;
                 if(workbook.worksheets[0].columns[0].values[i].indexOf('Group') !== -1)
                     continue;
