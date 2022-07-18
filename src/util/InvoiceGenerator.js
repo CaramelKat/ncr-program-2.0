@@ -36,7 +36,7 @@ class InvoiceGenerator {
 
         doc.font('Helvetica')
             .fontSize(10)
-            .text("*Some sort of longer instructions and reminders that I'll write later because I'm tired lol", 10, doc.page.height - 15, {
+            .text("*If you have any questions, talk to your director", 10, doc.page.height - 15, {
                 align: 'left',
                 lineBreak: false,
             });
