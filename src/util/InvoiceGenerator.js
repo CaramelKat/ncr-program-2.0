@@ -256,7 +256,7 @@ class InvoiceGenerator {
 
                 this.generateTable(theOutput, this.invoice.badges[i])
 
-                if(i !== this.invoice.badges.length - 1)
+                if(i !== this.invoice.badges.length)
                     theOutput.addPage();
             }
         }
